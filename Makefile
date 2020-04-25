@@ -15,6 +15,10 @@ SPIGOT_RUNNER_IMG=mvaldron/spigot-runner
 
 MINECRAFT_RUNNER_IMG=itzg/minecraft-server
 
+ifndef MEMORY
+MEMORY=1G
+endif
+
 # Global
 help:
 	echo 
@@ -44,7 +48,13 @@ create-spigot: .check .build-runner
 # Vanilla
 create-mc: .check
 	mkdir -p $(PWD)/data/$(SRV)
-	$(DOCKER_RUN) -d -e EULA=TRUE -p $(P):25565 -v $(PWD)/data/$(SRV):/data --name $(SRV) $(MINECRAFT_RUNNER_IMG)
+	$(DOCKER_RUN) -d \
+-e EULA=TRUE \
+-e MEMORY=4G \
+-p $(P):25565 \
+-v $(PWD)/data/$(SRV):/data \
+--name $(SRV) \
+$(MINECRAFT_RUNNER_IMG)
 
 # General
 run: .check-server
