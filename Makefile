@@ -50,7 +50,7 @@ create-mc: .check
 	mkdir -p $(PWD)/data/$(SRV)
 	$(DOCKER_RUN) -d \
 -e EULA=TRUE \
--e MEMORY=4G \
+-e MEMORY=$(MEMORY) \
 -p $(P):25565 \
 -v $(PWD)/data/$(SRV):/data \
 --name $(SRV) \
